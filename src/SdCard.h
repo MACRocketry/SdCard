@@ -40,14 +40,9 @@ private:
 	SdCard(const uint8_t spi, const uint8_t pin_cs);
 	~SdCard(void){};
 
-	// uint16_t maxUInt(); //largest num representable by uint
-
-	// bool isSDConnect(void);
-	// bool isFileConnect(void);
-
 private:
 	bool isSDConnected, isFileConnected;
-	int16_t bufferCnt; //buffer up to 512 char
+	uint16_t bufferCnt; //buffer up to 512 char
 
 
 };
