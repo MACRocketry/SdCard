@@ -1,0 +1,33 @@
+# clang intellisense
+.clang_complete
+
+# ignore directories
+.directory
+.svn
+.vscode
+.*/
+**/release
+**/build/*
+
+# ignore files
+*.patch
+*.o
+*.symlink
+*.bak
+
+# include makefiles
+!Makefile
+!makefile
+!*.mk
+!*.make
+!build/Makefile
+!build/makefile
+!build/*.mk
+!build/*.make
+!makerules
+
+# ignore / include platformio
+Deviot/
+deviot.*
+.travis.yml
+
