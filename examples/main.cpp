@@ -25,7 +25,9 @@ void loop()
 	Serial.print(str);
 	sd->write(str, bytes);
 
-	if (255 < cnt)
+	if (255 < cnt) {
+		cnt = 0;
 		sd->openNextFile();
+	}
 	delay(500);
 }
