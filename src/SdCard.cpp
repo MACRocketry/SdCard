@@ -45,12 +45,13 @@ int SdCard::openFile(const char *file)
 {
 	if (sdFile) {       // if current file is open
 		sdFile.close(); // close current file
-		delay(5);       // delay 5ms
+		bufferCnt = 0;  // reset counter
+		delay(5);       // delay 5ms for hw to catch up
 	}
 	// open new file for write
 	if ((sdFile = SD.open(file, FILE_WRITE))) {
-		const char log_start[] = "start log...";
-		write(log_start, sizeof(log_start));
+		const char log_start[] = "start log...\n";
+		write(log_start, sizeof(log_start) - 1);
 		return 0;
 	}
 	return -1; // failed to open file
