@@ -5,18 +5,27 @@ SdCard *sd;
 
 void setup()
 {
-	sd = SdCard::ConnectSdCard(0, 10);
 	Serial.begin(9600);
-	delay(100);
+	while (!Serial); // wait for Serial monitor to start
+
+	if (NULL == (sd = SdCard::ConnectSdCard(0, 10))) {
+		while (true) {
+			Serial.print("Fail to connect SD Card\n");
+			delay(500);
+		}
+	}
+	sd->openNextFile();
 }
 
 int cnt = 0;
 char str[64];
 void loop()
 {
-	int bytes = sprintf(str, "Hello World, %d\n", cnt++);
-	Serial.println(str);
+	int bytes = sprintf(str, "Hello World:%d\n", cnt++);
+	Serial.print(str);
 	sd->write(str, bytes);
 
-	delay(1000);
+	if (255 < cnt)
+		sd->openNextFile();
+	delay(500);
 }

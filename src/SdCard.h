@@ -18,9 +18,10 @@ class SdCard {
 public:
 	/**
 	 * @brief      connects an sd card
-	 * @param      spi     The I2C bus (current library only support spi = 0)
+	 * @param      spi     The SPI bus (current library only support spi = 0)
 	 * @param      pin_cs  The chip select pin
 	 * @return     pointer to SdCard object, NULL if fail
+	 * @note       repeated call (same spi) will return the same SdCard object
 	 */
 	static SdCard *ConnectSdCard(const uint8_t spi, const uint8_t pin_cs);
 
@@ -28,8 +29,10 @@ public:
 	 * @brief      opens file with next available number
 	 * @return     return the file number, negative if fail
 	 */
-	int openNextFile();
+	int openNextFile(void);
 	int openFile(const char *file); // open specific file
+
+	bool isFileOpen(void);
 
 	/**
 	 * @brief      exactly same as normal c function write()
@@ -41,7 +44,6 @@ private:
 	~SdCard(void){};
 
 private:
-	bool isSDConnected, isFileConnected;
 	uint16_t bufferCnt; //buffer up to 512 char
 
 
