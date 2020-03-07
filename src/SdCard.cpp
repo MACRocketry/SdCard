@@ -7,7 +7,7 @@
  * it currently only supports one SD Card connection.
  * It also only support SPI bus 0
  */
-
+#define DEBUG 0
 static File sdFile;
 static SdCard *sd_pt = NULL;
 SdCard *SdCard::ConnectSdCard(const uint8_t spi, const uint8_t pin_cs)
@@ -50,8 +50,10 @@ int SdCard::openFile(const char *file)
 	}
 	// open new file for write
 	if ((sdFile = SD.open(file, FILE_WRITE))) {
-		const char log_start[] = "start log...\n";
-		write(log_start, sizeof(log_start) - 1);
+#if DEBUG
+			const char log_start[] = "start log...\n";
+			write(log_start, sizeof(log_start) - 1);
+#endif
 		return 0;
 	}
 	return -1; // failed to open file
